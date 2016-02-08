@@ -68,6 +68,6 @@ distZip {
 //task doit(dependsOn: 'release') << {
 createReleaseTag << {
     println 'We released now'
-	println releaseVersion
+	println release.releaseVersion
 }
 
