@@ -1,0 +1,98 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+apply plugin: 'console'
+apply plugin: 'github'
+apply plugin: 'release'
+
+sourceCompatibility = 1.8
+version = 'v0.6.1-SNAPSHOT'
+
+mainClassName = "io.github.flpa.gradlereleasetest.Main"
+
+applicationDefaultJvmArgs = ["-Xmx2g"]
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'commons-io:commons-io:2.4'
+	testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+//for creating DMG file
+apply plugin: "edu.sc.seis.macAppBundle"
+
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.edu.sc.seis:macAppBundle:2.1.5"
+    classpath 'me.trnl:github-release-gradle-plugin:0.1'
+  }
+}
+
+macAppBundle {
+    mainClassName = "at.fhtw.mcs.Main"
+}
+
+// include license and README in distribution package
+distZip {
+    into(project.name + "-" + version) {
+        from '.'
+        include 'LICENSE.txt'
+    }
+
+    // README.md is renamed to README.txt and Images are filtered
+    into(project.name + "-" + version) {
+    	from '.'
+    	include 'README.md'
+
+    	filter { String line ->
+	    line.replaceAll('!?\\[.*\\]\\(.*\\)', '')
+    	}
+
+    	rename { String fileName ->
+    	    fileName.replace('.md', '.txt')
+    	}
+    }
+}
+
+release {
+    /* Let's check that everything is committed */
+    doFirst {
+        if (!project.git.status().isEmpty()) {
+            throw new GradleException('You have uncommitted changes.')
+        }
+    }
+
+    /* Ask user for a release version, suggesting some default variant. */
+    version = { console.prompt(' > Please enter release version:', project.version - '-SNAPSHOT') }
+    tag = { "r$project.release.version" }
+    commitMessage = { "Release $project.release.version" }
+
+    /* Files and projects that needs to be updated with a new release version. */
+    update {
+//        file project('driver-compat').file('src/main/com/mongodb/Mongo.java')
+        file project.file('build.gradle')
+        projects allprojects
+    }
+
+    /* Spec for next version. As above, asking user input. */
+    next {
+        version = { console.prompt(' > Please enter next version:', bumpVersion(project.release.version)) }
+        commitMessage = { "Bumping version to $project.release.next.version" }
+    }
+
+    /* Tasks that needs to be performed during release. Will be done after tag step. */
+   // dependsOn subprojects.findAll { it.name != 'util' }*.install
+   // dependsOn project('driver').uberJar
+   // dependsOn project('driver-compat').uberJar
+   // dependsOn publishWiki
+//    dependsOn draftGhRelease
+}
