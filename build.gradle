@@ -63,3 +63,8 @@ distZip {
     }
 }
 
+task doit(dependsOn: 'release') << {
+    println 'We release now'
+	println version
+}
+
