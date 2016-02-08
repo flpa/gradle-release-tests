@@ -18,9 +18,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 
-
 sourceCompatibility = 1.8
-version = 'v0.6.2'
 
 mainClassName = "io.github.flpa.gradlereleasetest.Main"
 
