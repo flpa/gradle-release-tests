@@ -63,8 +63,11 @@ distZip {
     }
 }
 
-task doit(dependsOn: 'release') << {
-    println 'We release now'
-	println version
+
+
+//task doit(dependsOn: 'release') << {
+createReleaseTag << {
+    println 'We released now'
+	println releaseVersion
 }
 
