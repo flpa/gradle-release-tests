@@ -7,7 +7,7 @@ apply plugin: 'github'
 apply plugin: 'release'
 
 sourceCompatibility = 1.8
-version = 'v0.6.1-SNAPSHOT'
+version = 'v0.6.1'
 
 mainClassName = "io.github.flpa.gradlereleasetest.Main"
 
