@@ -6,7 +6,7 @@ buildscript {
   }
   dependencies {
     classpath "gradle.plugin.edu.sc.seis:macAppBundle:2.1.5"
-    classpath 'me.trnl:github-release-gradle-plugin:0.1'
+//    classpath 'me.trnl:github-release-gradle-plugin:0.1'
   }
 }
 
