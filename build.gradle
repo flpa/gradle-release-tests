@@ -67,6 +67,9 @@ distZip {
 
 //task doit(dependsOn: 'release') << {
 createReleaseTag << {
-    println this.tagName()
+    println version
+}
+preTagCommit << {
+    println version
 }
 
