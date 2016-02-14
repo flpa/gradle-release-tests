@@ -87,10 +87,10 @@ preTagCommit << {
      }
      
 release {
-    preCommitText = '[Gradle] '
-    preTagCommitMessage = 'pre tag commit: '
-    tagCommitMessage = 'creating tag: '
-    newVersionCommitMessage = 'new version commit: '
+    preCommitText = '[Gradle]'
+    preTagCommitMessage = 'pre tag commit:'
+    tagCommitMessage = 'creating tag:'
+    newVersionCommitMessage = 'new version commit:'
 }
 
 
