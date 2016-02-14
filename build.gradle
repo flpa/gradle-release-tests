@@ -20,6 +20,7 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.8
 
 mainClassName = "io.github.flpa.gradlereleasetest.Main"
+preCommitText=hanso
 
 applicationDefaultJvmArgs = ["-Xmx2g"]
 
@@ -62,8 +63,6 @@ distZip {
     }
 }
 
-
-tasks.createReleaseTag.dependsOn(distZip)
 
 //task doit(dependsOn: 'release') << {
 createReleaseTag << {
