@@ -6,7 +6,6 @@ buildscript {
   }
   dependencies {
     classpath "gradle.plugin.edu.sc.seis:macAppBundle:2.1.5"
-//    classpath 'me.trnl:github-release-gradle-plugin:0.1'
   }
 }
 
@@ -72,4 +71,21 @@ createReleaseTag << {
 preTagCommit << {
     println version
 }
+
+     task runo(type:Exec) {
+       //on linux
+       commandLine 'curl', '-u', 'flpa', '-X', 'POST', '-d', '@release.json', 'https://api.github.com/repos/flpa/gradle-release-tests/releases'
+
+       //store the output instead of printing to the console:
+       standardOutput = new ByteArrayOutputStream()
+
+       //extension method stopTomcat.output() can be used to obtain the output:
+       ext.output = {
+         return standardOutput.toString()
+       }
+	
+	println standardOutput.toString()
+     }
+     
+
 
