@@ -20,7 +20,6 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.8
 
 mainClassName = "io.github.flpa.gradlereleasetest.Main"
-preCommitText="hanso"
 
 applicationDefaultJvmArgs = ["-Xmx2g"]
 
@@ -87,5 +86,11 @@ preTagCommit << {
 	println standardOutput.toString()
      }
      
+release {
+    preCommitText = '[Gradle] '
+    preTagCommitMessage = 'pre tag commit: '
+    tagCommitMessage = 'creating tag: '
+    newVersionCommitMessage = 'new version commit: '
+}
 
 
